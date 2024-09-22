@@ -15,10 +15,10 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    sh "cd server"
+                    bat "cd server"
                     docker.build("${DOCKER_REGISTRY}/${DOCKER_IMAGE_1}:latest")
-                    sh "cd .."
-                    sh "cd client"
+                    bat "cd .."
+                    bat "cd client"
                     docker.build("${DOCKER_REGISTRY}/${DOCKER_IMAGE_2}:latest")
                 }
             }
@@ -38,7 +38,7 @@ pipeline {
                 script {
                     def scannerHome = tool "SonarScanner";
                     withSonarQubeEnv() {
-                        sh "${scannerHome}/bin/sonar-scanner"
+                        bat "${scannerHome}/bin/sonar-scanner"
                     }
                 }
             }
