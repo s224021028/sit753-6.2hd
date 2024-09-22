@@ -15,9 +15,9 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    dir("/server")
+                    dir("./server")
                     docker.build("${DOCKER_REGISTRY}/${DOCKER_IMAGE_1}:latest")
-                    dir("/client")
+                    dir("./client")
                     docker.build("${DOCKER_REGISTRY}/${DOCKER_IMAGE_2}:latest")
                 }
             }
