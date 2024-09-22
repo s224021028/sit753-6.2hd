@@ -1,9 +1,9 @@
 replicaCount: 1
 
 image:
-  repository: s224021028/stories-backend
+  repository: s224021028acr.azurecr.io/stories-backend
   pullPolicy: Always
-  tag: "2"
+  tag: "latest"
 
 imagePullSecrets: []
 nameOverride: ""
