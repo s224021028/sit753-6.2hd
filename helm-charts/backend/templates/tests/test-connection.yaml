@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "stories-backend-charts.fullname" . }}-test-connection"
+  labels:
+    {{- include "stories-backend-charts.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "stories-backend-charts.fullname" . }}:{{ .Values.service.port }}']
+  restartPolicy: Never
