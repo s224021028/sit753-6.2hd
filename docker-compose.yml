@@ -2,9 +2,7 @@ version: "3.8"
 
 services:
   client:
-    build:
-      context: ./client
-      dockerfile: Dockerfile
+    image: stories-frontend:latest
     container_name: client
     ports:
       - "3000:3000"
@@ -16,9 +14,7 @@ services:
     depends_on:
       - server
   server:
-    build:
-      context: ./server
-      dockerfile: Dockerfile
+    image: stories-backend:latest
     container_name: server
     ports:
       - "3001:3001"

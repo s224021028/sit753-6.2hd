@@ -58,3 +58,4 @@ mongoose
       Post.insertMany(posts);
   })
   .catch((error) => console.log(`${error} did not connect`));
+export default app

@@ -6,29 +6,30 @@ pipeline {
         DOCKER_IMAGE_1 = "stories-backend"
         DOCKER_IMAGE_2 = "stories-frontend"
         //KUBECONFIG = '/path/to/your/kubeconfig'
-        //HELM_RELEASE_NAME = 'mern-app-release'
-        //HELM_CHART_PATH = 'mern-chart/'
     }
 
     stages {
 
-        /*stage('Build') {
+        stage("Build") {
             steps {
                 script {
                     dir("./server") {
-                        docker.build("${DOCKER_REGISTRY}/${DOCKER_IMAGE_1}:latest")
+                        docker.build("${DOCKER_IMAGE_1}:latest")
                     }
                     dir("./client") {
-                        docker.build("${DOCKER_REGISTRY}/${DOCKER_IMAGE_2}:latest")
+                        docker.build("${DOCKER_IMAGE_2}:latest")
                     }
                 }
             }
-        }*/
+        }
 
         stage("Test") {
             steps {
                 script {
                     dir("./client") {
+                        bat "npm test"
+                    }
+                    dir("./server") {
                         bat "npm test"
                     }
                 }
@@ -46,50 +47,40 @@ pipeline {
             }
         }*/
 
-        /*stage('Push Docker Image') {
+        stage("Push Docker Image") {
             steps {
                 script {
-                    docker.withRegistry("https://${DOCKER_REGISTRY}", "384f8bd0-a2a3-4868-a88e-b05fd19f3fac") {
-                        docker.image("${DOCKER_REGISTRY}/${DOCKER_IMAGE_1}:latest").push()
-                        docker.image("${DOCKER_REGISTRY}/${DOCKER_IMAGE_2}:latest").push()
+                    docker.withRegistry("https://${DOCKER_REGISTRY}", "c8aa2f93-4fdf-4bb9-a36d-fa57c063edb0") {
+                        def image1 = docker.image("${DOCKER_IMAGE_1}:latest")
+                        def image2 = docker.image("${DOCKER_IMAGE_2}:latest")
+                        image1.tag("${DOCKER_REGISTRY}/${DOCKER_IMAGE_1}:latest")
+                        image2.tag("${DOCKER_REGISTRY}/${DOCKER_IMAGE_2}:latest")
+                        image1.push()
+                        image2.push()
                     }
                 }
             }
-        }*/
+        }
 
-        /*stage('Deploy to AKS with Helm') {
+        stage("Deploy to Staging Environment with Docker Compose") {
             steps {
                 script {
-                    sh """
-                    helm upgrade --install ${HELM_RELEASE_NAME} ${HELM_CHART_PATH} \
-                    --set image.repository=${DOCKER_REGISTRY}/${DOCKER_IMAGE} \
-                    --set image.tag=latest \
-                    --kubeconfig=${KUBECONFIG}
-                    """
+                    bat "docker compose up"
                 }
             }
         }
 
-        stage('Release to Production') {
+        /*stage('Release to Production') {
             steps {
                 script {
-                    // Helm promotes application to production
-                    sh """
-                    helm upgrade --install ${HELM_RELEASE_NAME}-prod ${HELM_CHART_PATH} \
-                    --set image.repository=${DOCKER_REGISTRY}/${DOCKER_IMAGE} \
-                    --set image.tag=latest \
-                    --kubeconfig=${KUBECONFIG} \
-                    --namespace production
-                    """
-                }
-            }
-        }
-
-        stage('Monitoring & Alerting') {
-            steps {
-                script {
-                    // Monitor using Datadog or New Relic
-                    sh 'datadog-agent monitor your-service'
+                    bat "helm repo add bitnami https://charts.bitnami.com/bitnami"
+                    bat "helm upgrade --install stories-mongo --set auth.enabled=false,arbiter.enabled=false,architecture=replicaset,replicaSet.replicas.secondary=1 bitnami/mongodb --kubeconfig="
+                    dir("./helm-charts/backend") {
+                        bat "helm upgrade --install stories-backend --kubeconfig="
+                    }
+                    dir("./helm-charts/frontend") {
+                        bat "helm upgrade --install stories-frontend --kubeconfig="
+                    }
                 }
             }
         }*/
