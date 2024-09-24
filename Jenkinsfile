@@ -65,9 +65,7 @@ pipeline {
         stage("Deploy to Staging Environment with Docker Compose") {
             steps {
                 script {
-                    docker.withRegistry("https://${DOCKER_REGISTRY}", "c8aa2f93-4fdf-4bb9-a36d-fa57c063edb0") {
-                        bat "docker compose up"
-                    }
+                    bat "docker compose up"
                 }
             }
         }
