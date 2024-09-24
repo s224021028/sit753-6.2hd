@@ -12,7 +12,7 @@ pipeline {
 
     stages {
 
-        stage('Build') {
+        /*stage('Build') {
             steps {
                 script {
                     dir("./server") {
@@ -23,7 +23,7 @@ pipeline {
                     }
                 }
             }
-        }
+        }*/
 
         /*stage('Test') {
             steps {
@@ -45,7 +45,7 @@ pipeline {
             }
         }
 
-        stage('Push Docker Image') {
+        /*stage('Push Docker Image') {
             steps {
                 script {
                     docker.withRegistry("https://${DOCKER_REGISTRY}", "384f8bd0-a2a3-4868-a88e-b05fd19f3fac") {
@@ -54,7 +54,7 @@ pipeline {
                     }
                 }
             }
-        }
+        }*/
 
         /*stage('Deploy to AKS with Helm') {
             steps {
