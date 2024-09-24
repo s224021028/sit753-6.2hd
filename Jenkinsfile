@@ -55,8 +55,8 @@ pipeline {
                     docker.withRegistry("https://${DOCKER_REGISTRY}", "c8aa2f93-4fdf-4bb9-a36d-fa57c063edb0") {
                         def image1 = docker.image("${DOCKER_IMAGE_1}")
                         def image2 = docker.image("${DOCKER_IMAGE_2}")
-                        image1.tag("${DOCKER_REGISTRY}/${DOCKER_IMAGE_1}")
-                        image2.tag("${DOCKER_REGISTRY}/${DOCKER_IMAGE_2}")
+                        image1.tag(["${DOCKER_REGISTRY}/${DOCKER_IMAGE_1}"])
+                        image2.tag(["${DOCKER_REGISTRY}/${DOCKER_IMAGE_2}"])
                         image1.push()
                         image2.push()
                     }
