@@ -27,9 +27,11 @@ pipeline {
             steps {
                 script {
                     dir("./client") {
+                        bat "npm install"
                         bat "npm test"
                     }
                     dir("./server") {
+                        bat "npm install"
                         bat "npm test"
                     }
                 }
