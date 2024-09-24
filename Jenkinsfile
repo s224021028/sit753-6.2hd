@@ -28,7 +28,7 @@ pipeline {
                 script {
                     dir("./client") {
                         bat "npm install"
-                        bat "npm test --passWithNoTests"
+                        bat "npm test"
                     }
                     dir("./server") {
                         bat "npm install"
