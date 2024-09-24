@@ -54,7 +54,7 @@ pipeline {
                 script {
                     docker.withRegistry("https://${DOCKER_REGISTRY}", "c8aa2f93-4fdf-4bb9-a36d-fa57c063edb0") {
                         bat "docker tag ${DOCKER_IMAGE_1} ${DOCKER_REGISTRY}/${DOCKER_IMAGE_1}"
-                        bat "docker tag ${DOCKER_IMAGE_1} ${DOCKER_REGISTRY}/${DOCKER_IMAGE_2}"
+                        bat "docker tag ${DOCKER_IMAGE_2} ${DOCKER_REGISTRY}/${DOCKER_IMAGE_2}"
                         bat "docker push ${DOCKER_REGISTRY}/${DOCKER_IMAGE_1}"
                         bat "docker push ${DOCKER_REGISTRY}/${DOCKER_IMAGE_2}"
                     }
