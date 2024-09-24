@@ -12,6 +12,7 @@ services:
       - BACKEND_URL=http://localhost:3001
     volumes:
       - ./client:/usr/app
+      - /usr/app/node_modules
     depends_on:
       - server
   server:
@@ -27,6 +28,7 @@ services:
       - JWT_SECRET=password
     volumes:
       - ./server:/usr/app
+      - /usr/app/node_modules
     depends_on:
       - mongo
   mongo:

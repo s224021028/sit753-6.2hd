@@ -25,16 +25,17 @@ pipeline {
             }
         }*/
 
-        /*stage('Test') {
+        stage("Test") {
             steps {
                 script {
-                    sh 'npm install'
-                    sh 'npm test'
+                    dir("./client") {
+                        bat "npm test"
+                    }
                 }
             }
-        }*/
+        }
 
-        stage("Code Quality Analysis") {
+        /*stage("Code Quality Analysis") {
             steps {
                 script {
                     def scannerHome = tool "SonarScanner";
@@ -43,7 +44,7 @@ pipeline {
                     }
                 }
             }
-        }
+        }*/
 
         /*stage('Push Docker Image') {
             steps {
