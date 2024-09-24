@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   client:
-    image: stories-frontend:latest
+    image: s224021028.azurecr.io/stories-frontend:latest
     container_name: client
     ports:
       - "3000:3000"
@@ -14,7 +14,7 @@ services:
     depends_on:
       - server
   server:
-    image: stories-backend:latest
+    image: s224021028.azurecr.io/stories-backend:latest
     container_name: server
     ports:
       - "3001:3001"
