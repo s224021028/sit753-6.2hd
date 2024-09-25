@@ -10,7 +10,7 @@ pipeline {
 
     stages {
 
-        /*stage("Build") {
+        stage("Build") {
             steps {
                 script {
                     dir("./server") {
@@ -68,7 +68,7 @@ pipeline {
                     bat "docker compose up -d"
                 }
             }
-        }*/
+        }
 
         stage("Release to Production on AKS") {
             steps {
