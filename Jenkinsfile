@@ -5,12 +5,12 @@ pipeline {
         DOCKER_REGISTRY = "s224021028acr.azurecr.io"
         DOCKER_IMAGE_1 = "stories-backend"
         DOCKER_IMAGE_2 = "stories-frontend"
-        //KUBECONFIG = '/path/to/your/kubeconfig'
+        KUBECONFIG = "C:/Users/White/.kube/config"
     }
 
     stages {
 
-        /*stage("Build") {
+        stage("Build") {
             steps {
                 script {
                     dir("./server") {
@@ -38,7 +38,7 @@ pipeline {
             }
         }
 
-        /*stage("Code Quality Analysis") {
+        stage("Code Quality Analysis") {
             steps {
                 script {
                     def scannerHome = tool "SonarScanner";
@@ -60,30 +60,35 @@ pipeline {
                     }
                 }
             }
-        }*/
+        }
 
         stage("Deploy to Staging Environment with Docker Compose") {
             steps {
                 script {
-                    bat "docker compose up"
+                    bat "docker compose up -d"
                 }
             }
         }
 
-        /*stage('Release to Production') {
+        stage("Release to Production on AKS") {
             steps {
                 script {
-                    bat "helm repo add bitnami https://charts.bitnami.com/bitnami"
-                    bat "helm upgrade --install stories-mongo --set auth.enabled=false,arbiter.enabled=false,architecture=replicaset,replicaSet.replicas.secondary=1 bitnami/mongodb --kubeconfig="
-                    dir("./helm-charts/backend") {
-                        bat "helm upgrade --install stories-backend --kubeconfig="
-                    }
-                    dir("./helm-charts/frontend") {
-                        bat "helm upgrade --install stories-frontend --kubeconfig="
-                    }
+                    bat "helm repo add bitnami https://charts.bitnami.com/bitnami --kubeconfig ${KUBE_CONFIG}"
+                    bat "helm upgrade --install stories-mongo --set auth.enabled=false,arbiter.enabled=false,architecture=replicaset,replicaSet.replicas.secondary=1 bitnami/mongodb --kubeconfig ${KUBE_CONFIG}"
+                    bat "helm upgrade --install stories-backend ./helm-charts/backend --kubeconfig ${KUBE_CONFIG}"
+                    bat "helm upgrade --install stories-frontend ./helm-charts/frontend --kubeconfig ${KUBE_CONFIG}"
                 }
             }
-        }*/
+        }
+
+        stage("Monitoring and Alerting using Grafana") {
+            steps {
+                script {
+                    bat "helm repo add bitnami https://charts.bitnami.com/bitnami --kubeconfig ${KUBE_CONFIG}"
+                    bat "helm upgrade --install stories-grafana bitnami/grafana --set service.type=LoadBalancer --kubeconfig ${KUBE_CONFIG}"
+                }
+            }
+        }
     }
 
     post {

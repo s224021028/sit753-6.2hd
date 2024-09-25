@@ -50,7 +50,7 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
 
 config:
-  backend_url: http://35.244.102.225:3001
+  backend_url: http://13.70.134.248:3001
 
 nodeSelector: {}
 

@@ -14,10 +14,10 @@ const userIds = [
 export const users = [
   {
     _id: userIds[0],
-    firstName: "test",
+    firstName: "s224021028",
     lastName: "me",
-    email: "aaaaaaa@gmail.com",
-    password: "$2b$10$dsasdgsagasda//G9JxQ4bQ8KXf4OAIe/X/AK9skyWUy",
+    email: "s224021028@gmail.com",
+    password: "$2a$12$Bq2tAJrnHtgGbG1X6bmLj.blx2Y9S6DiS3YJjY5hHRRvCxiskMWFy",
     picturePath: "p11.jpeg",
     friends: [],
     location: "San Fran, CA",

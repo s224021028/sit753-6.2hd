@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   client:
-    image: s224021028acr.azurecr.io/stories-frontend:latest
+    image: stories-frontend:latest
     container_name: client
     ports:
       - "3000:3000"
@@ -14,7 +14,7 @@ services:
     depends_on:
       - server
   server:
-    image: s224021028acr.azurecr.io/stories-backend:latest
+    image: stories-backend:latest
     container_name: server
     ports:
       - "3001:3001"
@@ -31,8 +31,6 @@ services:
     image: mongo:latest
     ports:
       - "27017:27017"
-    volumes:
-      - mongo_data:/data/db
 
 volumes:
   mongo_data: {}
