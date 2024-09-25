@@ -5,12 +5,12 @@ pipeline {
         DOCKER_REGISTRY = "s224021028acr.azurecr.io"
         DOCKER_IMAGE_1 = "stories-backend"
         DOCKER_IMAGE_2 = "stories-frontend"
-        KUBECONFIG = "C:/Users/White/.kube/config"
+        KUBE_CONFIG = "C:/Users/White/.kube/config"
     }
 
     stages {
 
-        stage("Build") {
+        /*stage("Build") {
             steps {
                 script {
                     dir("./server") {
@@ -68,7 +68,7 @@ pipeline {
                     bat "docker compose up -d"
                 }
             }
-        }
+        }*/
 
         stage("Release to Production on AKS") {
             steps {
